@@ -38,6 +38,7 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
     {
         roomStatusText.text = "Room created successfully!";
         Debug.Log("Room created successfully!");
+        PhotonNetwork.LoadLevel("GameScene");
     }
 
     public void JoinRoom()
