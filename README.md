@@ -69,3 +69,5 @@ Future Plans
 AI Integration: Implementing AI-driven opponents for single-player modes.
 Card Expansion Packs: Supporting customizable card packs to expand game content.
 Customizable Game Modes: Allowing for different game rules and victory conditions.
+
+Under development...
