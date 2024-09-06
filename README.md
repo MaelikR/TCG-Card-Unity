@@ -1,5 +1,9 @@
 TCG Card Base Framework
-Welcome to the TCG Card Base Framework, a versatile and customizable framework designed for creating Trading Card Games (TCG) from scratch using Unity and Photon Networking. Whether you're building a competitive online multiplayer TCG or an offline collectible card game, this framework provides the core functionalities needed to manage cards, decks, gameplay, and online multiplayer features.
+Welcome to the TCG Card Base Framework, a versatile and customizable framework designed for creating Trading Card Games (TCG) from scratch using Unity and Photon Networking. Whether you're building a competitive online multiplayer TCG or an offline 
+collectible card game, this framework provides the core functionalities needed to manage cards, decks, gameplay, and online multiplayer features.
+
+![image](https://github.com/user-attachments/assets/64b2da36-1c11-4252-a4a5-508356f1cd0d)
+
 
 Features
 Dynamic Card Creation: Easily create and manage various card types (monsters, spells, relics) with customizable properties like attack points, defense points, and special abilities.
