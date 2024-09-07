@@ -114,3 +114,60 @@ Handles the logic of playing a card or attacking, and uses Photon to synchronize
 Card Prefab :
 
 Creates a Prefab containing a button for each card action and a CardUI script to handle these interactions.
+PhotonManager Script for Photon PUN
+This repository contains the PhotonManager script, which manages both the connection to Photon Unity Networking (PUN) and room creation/joining functionality in a single, simple script. This script is designed to handle multiplayer connectivity in Unity projects.
+
+Overview
+The PhotonManager script handles two key tasks:
+
+Connecting to Photon PUN: It establishes a connection to the Photon servers using the player's nickname.
+Room Management: It provides the ability to create a new room or join an existing room, syncing player actions across all connected clients.
+Getting Started
+Prerequisites
+Before using the PhotonManager script, make sure you have the following:
+
+Unity: Version 2020.3 or later.
+Photon Unity Networking (PUN 2): Downloadable from the Unity Asset Store.
+A Photon Account and App ID: You can create a free Photon account and obtain an App ID from the Photon Dashboard.
+Installing Photon PUN
+To set up Photon PUN in Unity:
+
+Open the Unity Asset Store and search for Photon PUN 2.
+Download and import Photon PUN 2 - FREE into your project.
+Go to the Photon Dashboard and create a new Photon project to get your App ID.
+In Unity, go to Window > Photon Unity Networking > PUN Wizard.
+Paste your App ID into the AppId PUN field in PhotonServerSettings.
+Script Setup
+Add the PhotonManager Script: Attach the PhotonManager script to a GameObject in your Unity scene (for example, an empty GameObject named "NetworkManager").
+UI Setup: Ensure you have UI elements (InputFields, Buttons, Text) set up in the Unity scene for player input, room name input, connection status, and room status.
+InputField (playerNameInput): Where the player enters their name.
+InputField (roomNameInput): Where the player enters the room name.
+Buttons (connectButton, createRoomButton, joinRoomButton): For connecting, creating rooms, and joining rooms.
+Text (connectionStatusText, roomStatusText): To display connection and room status messages.
+Features
+Connect to Photon PUN: Players can connect to the Photon servers using their nickname.
+Create a Room: Players can create a new multiplayer room by entering a room name.
+Join a Room: Players can join an existing room by entering the room name.
+Real-Time Synchronization: Photon PUN synchronizes the game state (room creation, player joining, scene changes) between all connected players.
+How to Use
+Connecting to Photon PUN
+Enter your player name in the input field.
+Click the Connect button.
+The script will connect to Photon PUN using the player's nickname.
+Once connected, the "Create Room" and "Join Room" buttons will become interactable.
+The connection status will be displayed in the connectionStatusText.
+Creating a Room
+Enter a room name in the room name input field (must be at least 3 characters).
+Click the Create Room button.
+The script will create a new room with the specified name.
+If the room is successfully created, the game will transition to the multiplayer scene (e.g., ConnectGameScene).
+The room creation status will be displayed in the roomStatusText.
+Joining a Room
+Enter the name of an existing room.
+Click the Join Room button.
+The script will attempt to join the room with the specified name.
+Once the room is joined, and if all players are present, the game will transition to the multiplayer scene.
+The room status will be displayed in the roomStatusText.
+Synchronization
+Photon PUN handles the real-time synchronization between players, including player connections, room management, and scene transitions.
+The game is automatically synchronized when players create or join rooms, and their actions (such as playing cards in a game) are reflected across all connected clients.
