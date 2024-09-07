@@ -32,11 +32,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     // Piocher les cartes initiales pour le joueur
     void DrawInitialHand()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < deckManager.maxHandSize; i++)
         {
-            deckManager.DrawCardWithLimit(true);
+            Card drawnCard = deckManager.DrawCardWithLimit(true);
+            if (drawnCard == null)
+            {
+                break;  // Stop drawing if hand is full
+            }
         }
-        handUI.UpdateHandUI(deckManager.hand);
+        handUI.UpdateHandUI(deckManager.hand);  // Updating hand UI
     }
 
     // Appel réseau pour piocher une carte

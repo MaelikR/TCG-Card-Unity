@@ -3,15 +3,16 @@ using UnityEngine;
 [System.Serializable]
 public class FantasyCard : Card
 {
-    public FantasyCard(string name, string desc, int attack, int defense, int mana)
-        : base(name, desc, attack, defense, mana)
+    public FantasyCard(int id, string name, string desc, int attack, int defense, int mana)
+        : base(id, name, desc, attack, defense, mana)  // Passes to the base class (Card) constructor
     {
     }
-    public string cardName = "Mage Mystique";
-    public string description = "Un mage puissant maîtrisant la magie des arcanes.";
-    public int attackPoints = 5;
-    public int defensePoints = 4;
-    public int manaCost = 7;
+
+    public new string cardName;  // This will hide the base class field
+    public new string description;
+    public new int attackPoints;
+    public new int defensePoints;
+    public new int manaCost;
 
     // Méthode d'initialisation à la place du constructeur
     public void Initialize(string name, string desc, int attack, int defense, int mana)

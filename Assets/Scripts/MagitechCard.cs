@@ -3,15 +3,15 @@ using UnityEngine;
 [System.Serializable]
 public class MagitechCard : Card
 {
-    public MagitechCard(string name, string desc, int attack, int defense, int mana)
-        : base(name, desc, attack, defense, mana)
+    public MagitechCard(int id, string name, string desc, int attack, int defense, int mana)
+        : base(id, name, desc, attack, defense, mana)  // Fix the constructor call
     {
     }
-    public string cardName = "Mage Technomancien";
-    public string description = "Un puissant mage combinant des arts magiques anciens et des technologies oubliées.";
-    public int attackPoints = 8;
-    public int defensePoints = 7;
-    public int manaCost = 9;
+    public new string cardName;  // This will hide the base class field
+    public new string description;
+    public new int attackPoints;
+    public new int defensePoints;
+    public new int manaCost;
 
     // Méthode d'initialisation à la place du constructeur
     public void Initialize(string name, string desc, int attack, int defense, int mana)

@@ -1,19 +1,20 @@
 using System.Diagnostics;
 using UnityEngine;
 
-[System.Serializable]
-public class NeoFuturisticCard : Card  // Hérite maintenant de Card
-{
-    public string cardName = "Cyber Soldat";
-    public string description = "Un soldat augmenté avec des implants cybernétiques et une armure futuriste.";
-    public int attackPoints = 10;
-    public int defensePoints = 5;
-    public int manaCost = 8;
 
-    public NeoFuturisticCard(string name, string desc, int attack, int defense, int mana) : base(name, desc, attack, defense, mana)
+[System.Serializable]
+public class NeoFuturisticCard : Card
+{
+    public NeoFuturisticCard(int id, string name, string desc, int attack, int defense, int mana)
+        : base(id, name, desc, attack, defense, mana)  // Fix the constructor call
     {
     }
-
+    public new string cardName;  // This will hide the base class field
+    public new string description;
+    public new int attackPoints;
+    public new int defensePoints;
+    public new int manaCost;
+ 
     // Capacité spéciale : Attaque laser
     public void LaserAttack()
     {

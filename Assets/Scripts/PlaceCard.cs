@@ -15,7 +15,7 @@ public class PlaceCard : MonoBehaviour
             GameObject cardGO = Instantiate(cardPrefab, playerFieldUI);
 
             // Update the card prefab’s UI with the card data
-            cardGO.GetComponent<CardUI>().SetCardData(card);
+            cardGO.GetComponent<CardUI>().SetCardData(card, this);  // Pass both Card and PlaceCard reference
             Debug.Log($"Le joueur place {card.cardName} sur le terrain.");
         }
         else
@@ -24,7 +24,7 @@ public class PlaceCard : MonoBehaviour
             GameObject cardGO = Instantiate(cardPrefab, opponentFieldUI);
 
             // Update the card prefab’s UI with the card data
-            cardGO.GetComponent<CardUI>().SetCardData(card);
+            cardGO.GetComponent<CardUI>().SetCardData(card, this);  // Pass both Card and PlaceCard reference
             Debug.Log($"L'adversaire place {card.cardName} sur le terrain.");
         }
     }

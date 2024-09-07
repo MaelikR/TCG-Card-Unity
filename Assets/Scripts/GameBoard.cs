@@ -1,35 +1,30 @@
 using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEditor.UIElements;
 using UnityEngine;
-
-
-using System.Linq;  // Importe LINQ pour utiliser All()
 
 public class GameBoard : MonoBehaviour
 {
-    public List<Card> playerField = new List<Card>();
-    public List<Card> opponentField = new List<Card>();
+    public List<Card> playerField = new List<Card>();  // Cards on the player's field
+    public List<Card> opponentField = new List<Card>();  // Cards on the opponent's field
 
-    // Placer une carte sur le terrain
     public void PlaceCard(Card card, bool isPlayer)
     {
         if (isPlayer)
         {
             playerField.Add(card);
-            UnityEngine.Debug.Log($"Le joueur place {card.cardName} sur le terrain.");
+            Debug.Log($"Player placed {card.cardName} on the field.");
         }
         else
         {
             opponentField.Add(card);
-            UnityEngine.Debug.Log($"L'adversaire place {card.cardName} sur le terrain.");
+            Debug.Log($"Opponent placed {card.cardName} on the field.");
         }
     }
+
     public void CheckSpecialVictoryCondition()
     {
-        if (playerField.Count >= 5 && playerField.All(card => card.cardName == "Relique"))
+        if (playerField.Count >= 5 && playerField.TrueForAll(card => card.cardName == "Relique"))
         {
-            UnityEngine.Debug.Log("Le joueur a collecté 5 Reliques et gagne la partie !");
+            Debug.Log("Player has collected 5 Relics and wins the game!");
         }
     }
 }

@@ -1,9 +1,10 @@
 using UnityEngine;
-using Photon.Pun;  // Pour Photon
+using Photon.Pun;
 
 [System.Serializable]
-public class Card : MonoBehaviourPun  // Hérite de MonoBehaviourPun pour accéder à photonView
+public class Card : MonoBehaviourPun
 {
+    public int cardID;
     public string cardName;
     public string description;
     public int attackPoints;
@@ -12,9 +13,10 @@ public class Card : MonoBehaviourPun  // Hérite de MonoBehaviourPun pour accéder
     public Sprite cardSprite;
     public string cardType;
 
-    // Constructeur de carte
-    public Card(string name, string desc, int attack, int defense, int mana)
+    // Constructor with parameters
+    public Card(int id, string name, string desc, int attack, int defense, int mana)
     {
+        cardID = id;
         cardName = name;
         description = desc;
         attackPoints = attack;
@@ -22,27 +24,26 @@ public class Card : MonoBehaviourPun  // Hérite de MonoBehaviourPun pour accéder
         manaCost = mana;
     }
 
-    // Méthode d'attaque en réseau
     [PunRPC]
     public void Attack(Card target)
     {
-        target.defensePoints -= attackPoints;
-        Debug.Log($"{cardName} attaque {target.cardName} et inflige {attackPoints} points de dégâts !");
-        photonView.RPC("OnDamage", RpcTarget.AllBuffered, target.cardName, attackPoints);  // Synchronisation en réseau
+        target.TakeDamage(attackPoints);
+        Debug.Log($"{cardName} attacks {target.cardName}, dealing {attackPoints} damage!");
     }
 
-    // Méthode de gestion des dégâts en réseau
-    [PunRPC]
-    public void OnDamage(string cardName, int damage)
+    public void TakeDamage(int damage)
     {
-        Debug.Log($"La carte {cardName} subit {damage} points de dégâts.");
-        // Mise à jour des stats de la carte
+        defensePoints -= damage;
+        if (defensePoints <= 0)
+        {
+            photonView.RPC("OnDestroyed", RpcTarget.AllBuffered);
+        }
     }
 
-    // Réinitialiser après un tour (réseau)
     [PunRPC]
-    public void ResetStats()
+    public void OnDestroyed()
     {
-        // Réinitialiser les stats (attaque, défense)
+        Debug.Log($"{cardName} is destroyed.");
+        PhotonNetwork.Destroy(gameObject);
     }
 }

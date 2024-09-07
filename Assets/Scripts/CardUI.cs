@@ -4,16 +4,23 @@ using UnityEngine.UI;
 public class CardUI : MonoBehaviour
 {
     public Text cardNameText;
-    public Text attackPointsText;
-    public Text defensePointsText;
-    public Image cardArt;
+    public Image cardImage;
+    public Button playCardButton; // Bouton pour jouer la carte
 
-    public void SetCardData(Card card)
+    private Card cardData;
+    private PlaceCard placeCardScript;
+
+    // Fonction pour initialiser les données de la carte
+    public void SetCardData(Card card, PlaceCard placeCard)
     {
+        cardData = card;
+        placeCardScript = placeCard;
+
+        // Mise à jour des éléments UI
         cardNameText.text = card.cardName;
-        attackPointsText.text = "ATK: " + card.attackPoints.ToString();
-        defensePointsText.text = "DEF: " + card.defensePoints.ToString();
-        // Optionally, set the card art image here:
-        // cardArt.sprite = card.cardSprite;
+        cardImage.sprite = card.cardSprite;
+
+        // Ajouter l'action du bouton pour jouer la carte
+        playCardButton.onClick.AddListener(() => placeCardScript.PlaceCardOnField(cardData, true)); // true = joueur
     }
 }

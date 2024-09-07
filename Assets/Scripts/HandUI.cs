@@ -1,28 +1,23 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
-
+using UnityEngine;
 
 public class HandUI : MonoBehaviour
 {
-	public GameObject cardPrefab;  // Préfabriqué de carte à afficher dans la main
-	public Transform handPanel;  // Panel où les cartes seront affichées
+    public GameObject cardPrefab;
+    public Transform handPanel;
+    public PlaceCard placeCardScript;
 
-	// Mettre à jour l'UI avec les cartes actuelles dans la main
-	public void UpdateHandUI(List<Card> hand)
-	{
-		// Vider le panel avant de le remplir
-		foreach (Transform child in handPanel)
-		{
-			Destroy(child.gameObject);
-		}
+    public void UpdateHandUI(List<Card> hand)
+    {
+        foreach (Transform child in handPanel)
+        {
+            Destroy(child.gameObject);
+        }
 
-		// Afficher chaque carte dans la main
-		foreach (Card card in hand)
-		{
-			GameObject cardUI = Instantiate(cardPrefab, handPanel);
-			cardUI.GetComponentInChildren<Text>().text = card.cardName;
-			cardUI.GetComponentInChildren<Image>().sprite = card.cardSprite;  // Afficher l'image de la carte
-		}
-	}
+        foreach (Card card in hand)
+        {
+            GameObject cardUI = Instantiate(cardPrefab, handPanel);
+            cardUI.GetComponent<CardUI>().SetCardData(card, placeCardScript);
+        }
+    }
 }

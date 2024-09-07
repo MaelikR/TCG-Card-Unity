@@ -7,11 +7,15 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
     public InputField playerNameInput;
     public Text connectionStatusText;
     public Button connectButton;
+    public Button createRoomButton;
+    public Button joinRoomButton;
 
     void Start()
     {
-        PhotonNetwork.AutomaticallySyncScene = true; // Pour synchroniser la scène
+        PhotonNetwork.AutomaticallySyncScene = true;
         connectButton.interactable = true;
+        createRoomButton.interactable = false;
+        joinRoomButton.interactable = false;
         connectionStatusText.text = "Enter your name and connect.";
     }
 
@@ -21,8 +25,8 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
         {
             connectButton.interactable = false;
             connectionStatusText.text = "Connecting to Photon...";
-            PhotonNetwork.NickName = playerNameInput.text; // Attribuer le pseudo
-            PhotonNetwork.ConnectUsingSettings(); // Connexion à Photon
+            PhotonNetwork.NickName = playerNameInput.text;
+            PhotonNetwork.ConnectUsingSettings();
         }
         else
         {
@@ -30,17 +34,19 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
         }
     }
 
-    // Callback lorsque la connexion à Photon est réussie
     public override void OnConnectedToMaster()
     {
-        connectionStatusText.text = "Connected to Photon. Ready to join or create a room.";
-        connectButton.gameObject.SetActive(false); // Cache le bouton de connexion après réussite
+        connectionStatusText.text = "Connected to Photon. Ready to create or join a room.";
+        connectButton.gameObject.SetActive(false);
+        createRoomButton.interactable = true;
+        joinRoomButton.interactable = true;
     }
 
-    // Callback lorsque la connexion échoue
     public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
     {
         connectionStatusText.text = "Disconnected: " + cause.ToString();
-        connectButton.interactable = true; // Réactiver le bouton si la connexion échoue
+        connectButton.interactable = true;
+        createRoomButton.interactable = false;
+        joinRoomButton.interactable = false;
     }
 }

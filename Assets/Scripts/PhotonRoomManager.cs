@@ -12,7 +12,7 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        if (PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsConnectedAndReady) // Make sure we are connected to the Photon Master Server
         {
             if (roomNameInput.text.Length >= 3)
             {
@@ -28,22 +28,14 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            roomStatusText.text = "Not connected to Photon.";
+            roomStatusText.text = "Not connected to Photon. Please wait.";
             Debug.LogError("Not connected to Photon.");
         }
     }
 
-    // Callback called when the room is created successfully
-    public override void OnCreatedRoom()
-    {
-        roomStatusText.text = "Room created successfully!";
-        Debug.Log("Room created successfully!");
-        PhotonNetwork.LoadLevel("GameScene");
-    }
-
     public void JoinRoom()
     {
-        if (PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsConnectedAndReady) // Make sure we are connected to the Photon Master Server
         {
             if (roomNameInput.text.Length >= 3)
             {
@@ -57,43 +49,38 @@ public class PhotonRoomManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            roomStatusText.text = "Not connected to Photon.";
+            roomStatusText.text = "Not connected to Photon. Please wait.";
             Debug.LogError("Not connected to Photon.");
         }
     }
 
-    public override void OnJoinedRoom()
+    // Callback when a room is successfully created
+    public override void OnCreatedRoom()
     {
-        roomStatusText.text = "Joined room: " + PhotonNetwork.CurrentRoom.Name;
-
-        // Check if both players are in the room before loading the scene
-        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
-        {
-            PhotonNetwork.LoadLevel("GameScene"); // Load the game scene only when all players have joined
-        }
-        else
-        {
-            roomStatusText.text += "\nWaiting for the other player to join...";
-        }
+        roomStatusText.text = "Room created successfully!";
+        Debug.Log("Room created successfully!");
+        PhotonNetwork.LoadLevel("ConnectGameScene");
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         roomStatusText.text = newPlayer.NickName + " joined the room.";
 
-        // When another player joins, check again if the room is full
+        // Check again if the room is full before loading the game scene
         if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
         {
-            PhotonNetwork.LoadLevel("GameScene"); // Now load the game scene
+            PhotonNetwork.LoadLevel("ConnectGameScene");
         }
     }
 
+    // Handle room creation failure
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         roomStatusText.text = "Room creation failed: " + message;
         Debug.LogError("Room creation failed: " + message);
     }
 
+    // Handle join room failure
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         roomStatusText.text = "Join room failed: " + message;
