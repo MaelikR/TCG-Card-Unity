@@ -58,3 +58,59 @@ Player Turns: Players take turns drawing cards, playing cards, and attacking the
 Winning the Game: The game ends when one player reduces their opponent’s health to zero, or when specific victory conditions (e.g., collecting 5 Relic cards) are met.
 License
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+CardUI: Adding Buttons for Card Actions
+You will first need to set up the user interface (UI) for each card. Each card in the player's hand or on the board should have a button or clickable area to initiate actions (like playing a card or attacking).
+
+The card interface can be represented by a Prefab containing the following elements:
+
+A "Play" button (to play a card on the field).
+A "Attack" button (if the card is on the field and can attack).
+Other buttons for specific actions as needed (e.g. using a special ability).
+2. Creating a Card UI in Unity
+Card Prefab:
+
+Create a Prefab in Unity representing a card.
+Add a Canvas to this prefab to hold UI elements like buttons.
+Add two Button components for actions: one for "Play Card" and another for "Attack".
+Adds UI elements like an Image to display the card illustration and a Text for the name and characteristics.
+CardUI Script :
+
+Creates a CardUI script to handle button interactions on the card interface.
+
+3. Card Actions Management with CardActions
+The CardActions script must be attached to a game management object, such as the GameBoard.
+This script handles all network and logic actions of cards, such as playing a card or attacking. It is responsible for network logic throughout Photon.
+4. Configuration in the Unity Editor
+Assigning the Card Prefab to the Deck:
+
+You need to generate cards in the player's hand using Card Prefabs. When a card is added to the hand or placed on the field, you instantiate this Prefab and call the SetCardData method to associate the card with the right actions.
+Interaction with buttons:
+
+In your script that manages the player's hand or the board, each time a card is placed, it must be associated with the UI action buttons. You use the SetCardData method to link the actual card (Card) with its GUI elements.
+Button Management in Unity:
+
+You need to make sure that the buttons (like "Play" or "Attack") are properly configured in Unity and that the corresponding actions are called when these buttons are pressed.
+
+6. Example flow in Unity:
+Adding cards to the hand:
+
+When a card is drawn, the HandManager script adds the card to the hand and instantiates the corresponding UI with AddCardToHand().
+Interaction with the UI:
+
+When the player clicks "Play", the button calls the PlayCard() method from the CardActions script.
+When the player clicks "Attack", the button calls the Attack() method from CardActions, passing the ID of the attacking card and optionally the ID of the target.
+Conditional buttons:
+
+Depending on the game state (e.g. is the card on the field, or can it attack?), you can disable or enable certain buttons in the UI.
+7. Process summary:
+CardUI:
+
+Manages the UI for each card, including the "Play" and "Attack" buttons.
+Is linked to the CardActions class which contains the game logic.
+CardActions :
+
+Handles the logic of playing a card or attacking, and uses Photon to synchronize these actions in multiplayer.
+Card Prefab :
+
+Creates a Prefab containing a button for each card action and a CardUI script to handle these interactions.
