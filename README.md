@@ -58,16 +58,17 @@ git clone https://github.com/MaelikR/TCG-Card-Unity.git
 Install Unity: Make sure you have Unity installed (recommended version 2020.x or later).
 
 Photon Setup:
+Getting Started
+Prerequisites
+To work with this project, you will need:
 
-Sign up for a Photon account at Photon Engine.
-Obtain your App ID and add it to the PhotonServerSettings in Unity (Window > Photon Unity Networking > PhotonServerSettings).
-Build and Run:
-
-Open the project in Unity.
-Run the Connection Scene to connect to Photon and start playing.
-Future Plans
-AI Integration: Implementing AI-driven opponents for single-player modes.
-Card Expansion Packs: Supporting customizable card packs to expand game content.
-Customizable Game Modes: Allowing for different game rules and victory conditions.
+Unity: Version 2020.3 or later.
+Photon Unity Networking (PUN): This project uses PUN 2. Make sure you have installed Photon PUN 2 from the Unity Asset Store.
+Photon Account: You will need an App ID from Photon. You can create an account and get a free App ID from the Photon Engine Dashboard.
+How to Get the App ID for Photon PUN
+Go to the Photon Dashboard.
+Log in with your account or create a new account.
+Create a new Photon PUN project in the Photon Realtime tab.
+Copy the App ID provided for the project.
 
 Under development...
