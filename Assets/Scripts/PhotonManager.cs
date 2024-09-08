@@ -98,10 +98,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         connectionStatusText.text = "Connected to Photon PUN. Ready to create or join a room.";
-        connectButton.gameObject.SetActive(false);
-        createRoomButton.interactable = true;
+        connectButton.gameObject.SetActive(false);  // Désactiver le bouton "Connect"
+        createRoomButton.interactable = true;  // Activer les autres boutons
         joinRoomButton.interactable = true;
         Debug.Log("Connected to Photon PUN.");
+    }
+
+    void Update()
+    {
+        connectionStatusText.text = "Status: " + PhotonNetwork.NetworkClientState;
     }
 
     /// <summary>
@@ -156,13 +161,5 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         createRoomButton.interactable = false;
         joinRoomButton.interactable = false;
         Debug.LogError("Disconnected from Photon PUN: " + cause.ToString());
-    }
-
-    /// <summary>
-    /// Displays the current network status in the UI.
-    /// </summary>
-    void Update()
-    {
-        connectionStatusText.text = "Status: " + PhotonNetwork.NetworkClientState;
     }
 }
