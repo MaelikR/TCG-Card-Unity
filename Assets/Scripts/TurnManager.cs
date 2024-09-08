@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
-
+using UnityEngine.UI;
+using System;
 public class TurnManager : MonoBehaviourPunCallbacks
 {
     public DeckManager deckManager;
@@ -11,8 +12,23 @@ public class TurnManager : MonoBehaviourPunCallbacks
     public int playerMana = 10;
     public int opponentMana = 10;
     public GameBoard gameBoard;
+    public Button drawButton;        // Bouton pour piocher une carte
+    public Button endTurnButton;
+    public void Start()
+    {
+        // Lier les actions aux boutons
+        drawButton.onClick.AddListener(DrawCard);
+        endTurnButton.onClick.AddListener(EndTurn);
+    }
+
+    private void DrawCard()
+    {
+        throw new NotImplementedException();
+    }
+
     public void EndTurn()
     {
+        endTurnButton.interactable = false;
         isPlayerTurn = !isPlayerTurn;
         gameLogUI.AddMessageToLog(isPlayerTurn ? "Tour du joueur" : "Tour de l'adversaire");
 
@@ -32,6 +48,8 @@ public class TurnManager : MonoBehaviourPunCallbacks
 
     public void UpdateUI()
     {
+        endTurnButton.interactable = isPlayerTurn;
+        drawButton.interactable = isPlayerTurn;
         playerStatsUI.UpdatePlayerStats(30, playerMana, 30, opponentMana);
         fieldUI.UpdateFieldUI(gameBoard.playerField, gameBoard.opponentField);  // Corrige l'accès ici
     }
@@ -40,6 +58,7 @@ public class TurnManager : MonoBehaviourPunCallbacks
     {
         if (isPlayer)
         {
+            deckManager.DrawCardWithLimit(true);
             Card drawnCard = deckManager.DrawCardWithLimit(isPlayer);
             if (drawnCard != null)
             {

@@ -12,7 +12,7 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.AutomaticallySyncScene = true;  // Permet la synchronisation des scènes entre joueurs
         connectButton.interactable = true;
         createRoomButton.interactable = false;
         joinRoomButton.interactable = false;
@@ -24,9 +24,9 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
         if (playerNameInput.text.Length >= 3)
         {
             connectButton.interactable = false;
-            connectionStatusText.text = "Connecting to Photon...";
+            connectionStatusText.text = "Connecting to Photon PUN...";
             PhotonNetwork.NickName = playerNameInput.text;
-            PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.ConnectUsingSettings();  // Utiliser les paramètres de connexion de Photon PUN
         }
         else
         {
@@ -36,11 +36,13 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        connectionStatusText.text = "Connected to Photon. Ready to create or join a room.";
+        connectionStatusText.text = "Connected to Photon PUN. Ready to create or join a room.";
         connectButton.gameObject.SetActive(false);
-        createRoomButton.interactable = true;
+        createRoomButton.interactable = true;  // Activer les boutons après la connexion
         joinRoomButton.interactable = true;
+        Debug.Log("Connected to Photon PUN.");
     }
+
 
     public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
     {
@@ -48,5 +50,11 @@ public class PhotonConnect : MonoBehaviourPunCallbacks
         connectButton.interactable = true;
         createRoomButton.interactable = false;
         joinRoomButton.interactable = false;
+        Debug.LogError("Disconnected from Photon PUN: " + cause.ToString());
+    }
+
+    void Update()
+    {
+        connectionStatusText.text = "Status: " + PhotonNetwork.NetworkClientState; // Afficher l'état réseau
     }
 }

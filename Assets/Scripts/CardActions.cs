@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -70,11 +71,25 @@ public class CardActions : MonoBehaviourPunCallbacks
     }
 
     // Simulated method to retrieve a card object based on its ID
+    private List<Card> allCardsInGame = new List<Card>();  // Liste des cartes en jeu
+
     private Card GetCardByID(int cardID)
     {
-        // This method would look up a card by its ID
-        // You need to implement a system that assigns unique IDs to cards
-        // This is just a placeholder
-        return null; // Replace with actual logic
+        // Parcourt toutes les cartes dans le jeu et retourne celle qui correspond à l'ID
+        foreach (Card card in allCardsInGame)
+        {
+            if (card.cardID == cardID)
+            {
+                return card;
+            }
+        }
+        UnityEngine.Debug.LogError($"Carte avec l'ID {cardID} introuvable.");
+        return null;
+    }
+
+    // Méthode à appeler pour ajouter une carte à la liste allCardsInGame
+    public void AddCardToGame(Card card)
+    {
+        allCardsInGame.Add(card);
     }
 }

@@ -10,18 +10,19 @@ public class GameBoard : MonoBehaviour
     {
         if (isPlayer)
         {
-            playerField.Add(card);
+            playerField.Add(card);  // Add the card to the player's field
             Debug.Log($"Player placed {card.cardName} on the field.");
         }
         else
         {
-            opponentField.Add(card);
+            opponentField.Add(card);  // Add the card to the opponent's field
             Debug.Log($"Opponent placed {card.cardName} on the field.");
         }
     }
 
     public void CheckSpecialVictoryCondition()
     {
+        // Example condition to win the game
         if (playerField.Count >= 5 && playerField.TrueForAll(card => card.cardName == "Relique"))
         {
             Debug.Log("Player has collected 5 Relics and wins the game!");
